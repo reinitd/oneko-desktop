@@ -1,5 +1,8 @@
 # kot
 
+**NOT DONE**
+
+
 A little cat that follows your cursor. \
 Making this to practice C++.
 
