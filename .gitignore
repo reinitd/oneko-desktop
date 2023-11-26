@@ -1,3 +1,4 @@
+.trunk/
 .vscode/
 src/*.exe
 src/dist/oneko-config.json
