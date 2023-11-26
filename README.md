@@ -1,17 +1,9 @@
 # Oneko Desktop
 
-<!-- |     |     |
+|     |     |
 |:---:|:----|
-|![Example GIF](./src/images/logo.ico)|A little cat that follows your cursor; screen-wide! (just shy of 2mb!)<br/>Making this to practice and get into C++.| -->
+|![Example GIF](./src/images/logo.ico)|A little cat that follows your cursor; screen-wide! (just shy of 2mb!)<br/>Making this to practice and get into C++.|
 
-<div style="display: flex; align-items: center;">
-    <img src="./src/images/logo.ico" alt="Example GIF" style="width: 8%; margin-right: 20px;">
-    <div style="line-height: 0;">
-        <p>A little cat that follows your cursor; screen-wide! (just shy of 2mb!)</p>
-        <p>Making this to practice and get into C++.</p>
-    </div>
-</div>
-<br/>
 `src/dist` has an executable, so you don't have to build from scratch.
 
 ### Example:
