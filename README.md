@@ -2,7 +2,6 @@
 
 |![Example GIF](./src/images/logo.ico)|A little cat that follows your cursor; screen-wide! (just shy of 2mb!)<br/>Making this to practice and get into C++.|
 |:---:|:----|
-<!-- |![Example GIF](./src/images/logo.ico)|A little cat that follows your cursor; screen-wide! (just shy of 2mb!)<br/>Making this to practice and get into C++.| -->
 
 `src/dist` has an executable, so you don't have to build from scratch.
 
