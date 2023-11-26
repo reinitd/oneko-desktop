@@ -1,11 +1,17 @@
-<div style="display:inline-flex; align-items:center; width: 100%; border-bottom: 1px solid grey; margin-bottom:15px;">
-    <p style="font-size: 3em;">Oneko Desktop</p>
-    <img src="./src/images/logo.ico" style="width:10%;" />
+# Oneko Desktop
+
+<!-- |     |     |
+|:---:|:----|
+|![Example GIF](./src/images/logo.ico)|A little cat that follows your cursor; screen-wide! (just shy of 2mb!)<br/>Making this to practice and get into C++.| -->
+
+<div style="display: flex; align-items: center;">
+    <img src="./src/images/logo.ico" alt="Example GIF" style="width: 8%; margin-right: 20px;">
+    <div style="line-height: 0;">
+        <p>A little cat that follows your cursor; screen-wide! (just shy of 2mb!)</p>
+        <p>Making this to practice and get into C++.</p>
+    </div>
 </div>
-
-A little cat that follows your cursor; screen-wide! (just shy of 2mb!) \
-Making this to practice and get into C++.
-
+<br/>
 `src/dist` has an executable, so you don't have to build from scratch.
 
 ### Example:
