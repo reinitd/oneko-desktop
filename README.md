@@ -2,7 +2,7 @@
 
 **FULL READ ME COMING LATER TODAY, I NEED TO SLUMBER**
 
-A little cat that follows your cursor; screen-wide! \
+A little cat that follows your cursor; screen-wide! (just shy of 2mb!) \
 Making this to practice and get into C++.
 
 `kot/dist` has an executable, so you don't have to build from scratch.
