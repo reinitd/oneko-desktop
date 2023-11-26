@@ -1,3 +1,4 @@
 .vscode/
-*.exe
-kot/*.exe
+src/*.exe
+src/dist/oneko-config.json
+src/dist/oneko-desktop.log
