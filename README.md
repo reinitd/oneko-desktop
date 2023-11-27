@@ -25,12 +25,11 @@ Made this to practice and get into C++. \
 
 ## Other
 
-Shoutout to this YouTube video! I learned A LOT from it. \
-https://www.youtube.com/watch?v=1s8C9dXRXmM \
-(Also used that method for all of the includes.)
+Shoutout to this YouTube video! I learned A LOT from it. (Also used that method for all of the includes.)
+> https://www.youtube.com/watch?v=1s8C9dXRXmM 
 
-For glew, I used this: \
-https://github.com/Perlmint/glew-cmake
+For glew, I used this:
+> https://github.com/Perlmint/glew-cmake
 
 ## License
 
