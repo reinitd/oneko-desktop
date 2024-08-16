@@ -6,6 +6,10 @@
 Made this to practice and get into C++. \
 `src/dist` has an executable, so you don't have to build from scratch.
 
+### UPDATE Aug. 16, 2024
+Why are people forking and using this 😭.
+I might come back and rewrite this project.
+
 <details style="cursor: pointer;">
     <summary>Images</summary>
     <img src="./docs/example.gif" alt="GIF of the program." />
