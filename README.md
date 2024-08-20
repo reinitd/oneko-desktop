@@ -1,5 +1,7 @@
 # Oneko Desktop
 
+## You are on the OLD branch. Head to the main branch for the rewritten version.
+
 | ![Example GIF](./src/images/logo.ico) | A little cat that follows your cursor; screen-wide! (just shy of 2mb!)<br/>Making this to practice and get into C++. |
 | :-----------------------------------: | :------------------------------------------------------------------------------------------------------------------- |
 
