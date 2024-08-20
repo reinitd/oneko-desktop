@@ -6,6 +6,9 @@
 Made this to practice and get into C++. \
 `src/dist` has an executable, so you don't have to build from scratch.
 
+## UPDATE Aug. 20, 2024
+Ok got another star, rewriting this. Will probably use raylib.
+
 ### UPDATE Aug. 16, 2024
 Why are people forking and using this 😭. \
 If this gets another fork or star, I might come back and rewrite this project.
