@@ -6,3 +6,5 @@ This project was initially intended for me to learn C++, however, I will be rewr
 This rewrite will also support Linux, MacOS, and Windows; whereas the previous version only support Windows (used Windows-only libraries.)
 
 I expect this rewrite to be done within a week, if my schedule remains open.
+
+For the old version, head to the `old` branch.
