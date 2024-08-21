@@ -1,0 +1,2 @@
+rm -rf ./a.out*
+gcc -g ./src/main.c -I./include -lglfw -framework OpenGL

@@ -3,3 +3,6 @@
 src/*.exe
 src/dist/oneko-config.json
 src/dist/oneko-desktop.log
+src/OnekoDesktop
+
+a.out*
