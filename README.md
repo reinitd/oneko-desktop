@@ -3,7 +3,7 @@
 **Still not done.**
 
 For some reason this repo got 5 stars and 2 forks, so I'm rewriting this. \
-This project was initially intended for me to learn C++, however, I will be rewriting this in C using Raylib, instead of C++ and GLFW.
+This project was initially intended for me to learn C++, however, I will be rewriting this in C using GLFW, instead of C++ and GLFW.
 
 This rewrite will also support Linux, MacOS, and Windows; whereas the previous version only support Windows (used Windows-only libraries.)
 
