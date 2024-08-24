@@ -1,1 +1,1 @@
-gcc ./src/main.c -I./include -lglfw -framework OpenGL -o ./dist/OnekoDesktop
+gcc -Wunused-variable ./src/main.c -I./include -lglfw -ljson-c -framework OpenGL -o ./dist/OnekoDesktop

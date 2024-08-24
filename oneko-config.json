@@ -1,0 +1,9 @@
+{
+  "config_version":2.0,
+  "images_directory":"images",
+  "target_fps":60.0,
+  "movement_speed":1.25,
+  "distance_from_cursor_to_stop_movement":75,
+  "image_switch_interval":0.25,
+  "image_scale_factor":0.5
+}
