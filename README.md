@@ -13,6 +13,6 @@ For the old version, head to the `old` branch.
 
 
 ## TODO
--[] make variable and function case consistant
--[] remove redundant code
--[] make more efficient and find any memory leaks
+-[ ] make variable and function case consistant
+-[ ] remove redundant code
+-[ ] make more efficient and find any memory leaks
