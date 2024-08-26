@@ -1,1 +1,13 @@
-gcc -Wunused-variable ./src/main.c -I./include -lglfw -ljson-c -framework OpenGL -o ./dist/OnekoDesktop
+#!/bin/bash
+
+gcc \
+    -O3 \
+    -ftree-vectorize \
+    -flto -march=armv8-a \
+    -mcpu=apple-m1 \
+    -Wunused-variable ./src/main.c \
+    -I./include \
+    -lglfw \
+    -ljson-c \
+    -framework OpenGL \
+    -o ./dist/OnekoDesktop

@@ -26,11 +26,12 @@ typedef struct
 {
     float config_version;
     char *images_directory;
-    float target_fps;
     float movement_speed;
     float distance_from_cursor_to_stop_movement;
     float image_switch_interval;
     float image_scale_factor;
+    int winWidth;
+    int winHeight;
 } Config;
 
 // Thanks https://stackoverflow.com/a/4681398
@@ -203,6 +204,10 @@ float lerp(float start, float target, float t)
 {
     return start + t * (target - start);
 }
+float lerpNoT(float start, float target)
+{
+    return start + (target - start);
+}
 
 int start(const Config *cfg)
 {
@@ -221,20 +226,19 @@ int start(const Config *cfg)
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
 
-    window = glfwCreateWindow(70, 70, "Kot", NULL, NULL);
+    window = glfwCreateWindow(cfg->winWidth, cfg->winHeight, "Kot", NULL, NULL);
 
     if (!window)
     {
         handleGLFWError(true);
     }
 
+    glfwSwapInterval(1);
     glfwMakeContextCurrent(window);
 
     // For transparent textures
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    stbi_set_flip_vertically_on_load(true);
 
     char *first_sitting = pathBuilder(3, "actions", "sitting", "1.png");
 
@@ -283,68 +287,68 @@ int start(const Config *cfg)
     bool isImage1 = true;
     const float vertex_scale_factor = cfg->image_scale_factor;
 
+    double lastTime = glfwGetTime();
+    bool textureNeedsUpdate = false;
+    loopGlInit(&texture);
+    glClear(GL_COLOR_BUFFER_BIT);
+    GLFWvidmode *videoMode = glfwGetVideoMode(monitors[0]);
     while (!glfwWindowShouldClose(window))
     {
-        loopGlInit(&texture);
-
-        // Render textured quad
         glBegin(GL_QUADS);
         glTexCoord2f(0.0f, 0.0f);
-        glVertex2f(-vertex_scale_factor, -vertex_scale_factor);
-        glTexCoord2f(1.0f, 0.0f);
-        glVertex2f(vertex_scale_factor, -vertex_scale_factor);
-        glTexCoord2f(1.0f, 1.0f);
         glVertex2f(vertex_scale_factor, vertex_scale_factor);
-        glTexCoord2f(0.0f, 1.0f);
+        glTexCoord2f(1.0f, 0.0f);
         glVertex2f(-vertex_scale_factor, vertex_scale_factor);
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex2f(-vertex_scale_factor, -vertex_scale_factor);
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex2f(vertex_scale_factor, -vertex_scale_factor);
         glEnd();
 
         glfwGetCursorPos(window, &xpos, &ypos);
 
         int winXPos, winYPos;
         glfwGetWindowPos(window, &winXPos, &winYPos);
-        const GLFWvidmode *videoMode = glfwGetVideoMode(monitors[0]);
 
         float centeredCursorX = (winXPos + xpos) - (videoMode->width / 2);
         float centeredCursorY = (winYPos + ypos) - (videoMode->height / 2);
 
-        // TODO: Fix bullshit lerping.
+        float cursorX = (winXPos + xpos) - (cfg->winHeight / 2);
+        float cursorY = (winYPos + ypos) - (cfg->winWidth / 2);
 
-        float timeFactor = (float)glfwGetTime() / 10.0f;
-        if (timeFactor > 1.0f)
-            timeFactor = 1.0f;
-
-        int targetX = (int)xpos;
-        int targetY = (int)ypos;
-
-        float lerpX = lerp((float)winXPos, (float)targetX, timeFactor);
-        float lerpY = lerp((float)winYPos, (float)targetY, timeFactor);
-
+        float lerpX = lerpNoT((float)winXPos, cursorX);
+        float lerpY = lerpNoT((float)winYPos, cursorY);
         glfwSetWindowPos(window, (int)lerpX, (int)lerpY);
 
+        // Debug output
         if (DEBUG && count % 15 == 0)
         {
-            printf("Mouse: (%f,%f)\n", centeredCursorX, centeredCursorY);
-            printf("Win..: (%d,%d)\n", winXPos, winYPos);
-            printf("Lerp.: (%f,%f)\n", lerpX, lerpY);
-            printf("Trgt.: (%f,%f)\n", targetX, targetY);
+            printf("MoRaw: (%f, %f)\n", xpos, ypos);
+            printf("Mouse: (%f, %f)\n", centeredCursorX, centeredCursorY);
+            printf("Crsr.: (%f, %f)\n", cursorX, cursorY);
+            printf("Win..: (%d, %d)\n", winXPos, winYPos);
+            printf("Lerp.: (%f, %f)\n", lerpX, lerpY);
         }
 
-        char *action = "sitting";
-
-        txData = stbi_load(buildActionImagePath(cfg->images_directory, action, isImage1), &txWidth, &txHeight, &nrChannels, STBI_rgb_alpha);
-
-        if (txData)
+        if (textureNeedsUpdate)
         {
-            glBindTexture(GL_TEXTURE_2D, texture);
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, txWidth, txHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, txData);
-            stbi_image_free(txData);
+            char *action = "sitting";
+            txData = stbi_load(buildActionImagePath(cfg->images_directory, action, isImage1), &txWidth, &txHeight, &nrChannels, STBI_rgb_alpha);
+
+            if (txData)
+            {
+                glBindTexture(GL_TEXTURE_2D, texture);
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, txWidth, txHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, txData);
+                stbi_image_free(txData);
+                textureNeedsUpdate = false;
+            }
         }
 
         double currentTime = glfwGetTime();
         if (currentTime - lastSwitchTime >= switchInterval)
         {
             isImage1 = !isImage1;
+            textureNeedsUpdate = true;
             lastSwitchTime = currentTime;
         }
 
@@ -432,15 +436,6 @@ void load_config(const char *filename, Config *config)
     }
     config->images_directory = id;
 
-    if (!json_object_object_get_ex(parsed_json, "target_fps", &json_value))
-    {
-        config->target_fps = 60.0;
-    }
-    else
-    {
-        config->target_fps = json_object_get_double(json_value);
-    }
-
     if (!json_object_object_get_ex(parsed_json, "movement_speed", &json_value))
     {
         config->movement_speed = 1.25;
@@ -477,6 +472,24 @@ void load_config(const char *filename, Config *config)
         config->image_scale_factor = json_object_get_double(json_value);
     }
 
+    if (!json_object_object_get_ex(parsed_json, "win_width", &json_value))
+    {
+        config->winWidth = 70;
+    }
+    else
+    {
+        config->winWidth = json_object_get_double(json_value);
+    }
+
+    if (!json_object_object_get_ex(parsed_json, "win_height", &json_value))
+    {
+        config->winHeight = 70;
+    }
+    else
+    {
+        config->winHeight = json_object_get_double(json_value);
+    }
+
     json_object_put(parsed_json); // clean up, clean up, everyone clean up.
 }
 
@@ -492,11 +505,12 @@ int main(void)
 
         json_object_object_add(jobj, "config_version", json_object_new_double(CONFIG_VERSION));
         json_object_object_add(jobj, "images_directory", json_object_new_string("images"));
-        json_object_object_add(jobj, "target_fps", json_object_new_double(60.0));
         json_object_object_add(jobj, "movement_speed", json_object_new_double(1.25));
         json_object_object_add(jobj, "distance_from_cursor_to_stop_movement", json_object_new_int(75));
         json_object_object_add(jobj, "image_switch_interval", json_object_new_double(0.25));
         json_object_object_add(jobj, "image_scale_factor", json_object_new_double(0.5));
+        json_object_object_add(jobj, "win_width", json_object_new_int(70));
+        json_object_object_add(jobj, "win_height", json_object_new_int(70));
 
         const char *json_string = json_object_to_json_string_ext(jobj, JSON_C_TO_STRING_PRETTY);
 

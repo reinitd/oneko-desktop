@@ -13,6 +13,7 @@ For the old version, head to the `old` branch.
 
 
 ## TODO
+- [ ] **Test on Windows to see if the choppy movement is just on Mac**
 - [ ] make variable and function case consistant
 - [ ] remove redundant code
 - [ ] make more efficient and find any memory leaks
